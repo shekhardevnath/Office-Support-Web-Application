@@ -1,0 +1,308 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="{$SYSTEM_COMMON_CSS_DIR}/default.project.css" type="text/css">
+    <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/messages.js"></script>
+    <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+    <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/sorttable.js"></script>    
+    <link rel="stylesheet" href="/nm_tx/ext/calender/calendar.css?random=20051112" media="screen"></link>
+	  <script language="JavaScript" src="/nm_tx/ext/calender/calendar.js?random=20060118"></script>
+	</head>
+
+<!--start main contents table-->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="right" width="10" height="10"><img src="/nm_tx/common/image/table/top_lft.gif"></td>
+    <td background="/nm_tx/common/image/table/top_mid.gif"></td>
+    <td align="left" width="10" height="10"><img src="/nm_tx/common/image/table/top_rht.gif"></td>
+  </tr>
+  <tr>
+    <td align="right" width="10" background="/nm_tx/common/image/table/lft_border.gif"></td>
+    <td bgcolor="#FFFFFF" align="left" class="contentArea">    	
+    	
+    	<!--Content Area Starts Here-->
+    	<form name="searchForm" action="{$SCRIPT_NAME}" method="POST" enctype="multipart/form-data">
+    	{if $report eq 'tnm'}	
+    	<input type="hidden" name="cmd" value="tnm_report">
+    	{/if}
+    	{if $report eq 'nm_tx'}
+    	<input type="hidden" name="cmd" value="nm_tx_report">
+    	{/if}  
+    	{if $report eq 'recurrent_fault'}
+    	<input type="hidden" name="cmd" value="recurrent_fault_report">
+    	{/if}  
+    	<table  class="contentHeader" border="0" width="100%">
+  	    <tr>
+          <td class="contentHeaderText">Report Manager</td>         
+        </tr>  	  
+  	  </table>
+  	  <br/>
+  	  <table border="0" cellspacing="4">
+  	  	<tr>
+  	  		<td>
+  	  			<label class="label">Start Date</label><br/>
+  	  			<input type="text" name="start_date" value="{$start_date}" readonly>
+  	  			<input type="button" value="Cal" onclick="displayCalendar(document.searchForm.start_date,'yyyy-mm-dd',this)">
+  	  		</td>
+  	  		<td>
+  	  			<label class="label">End Date</label><br/>  	  			
+  	  			<input type="text" name="end_date" value="{$end_date}" readonly>  	  			
+  	  			<input type="button" value="Cal" onclick="displayCalendar(document.searchForm.end_date,'yyyy-mm-dd',this)">  	  			
+  	  		</td>
+  	  	<tr>
+  	  		<tr>
+  	  			<td colspan="3">
+  	  				<br>
+  	  				<input type="submit" class="submit" name="show" value="Show Report">
+  	  				<input type="reset" class="reset" name="reset" value="Reset">
+  	  			</td>
+  	  		</tr>
+  	  	</tr>
+  	  </table>
+  	  </form>
+  	  
+  	  <!--TNM report starts here-->
+  	  {if $report eq 'tnm'}
+  	    {if $r1[0]->total_faults ne 0}
+  	    <table  class="contentHeader" border="0" width="100%">
+  	      <tr>
+            <td class="contentHeaderText"></td>         
+          </tr>  	  
+  	    </table>
+  	    <br>  	  
+  	    <table border="0" cellspacing="2" cellpadding="5">
+  	    	<tr>
+  	    		<td bgcolor="#83A2D1"><b>Total Faults</b></td>
+  	  			<td bgcolor="#DCE8FA" align="right">{$r1[0]->total_faults}</td>
+  	    	</tr>
+  	    	<tr>
+  	    		<td bgcolor="#83A2D1"><b>MTTR</b></td>
+  	  			<td bgcolor="#DCE8FA" align="right">{$r2[0]->MTTR|string_format:"%.2f"}</td>
+  	    	</tr>
+  	    	<tr>
+  	    		<td bgcolor="#83A2D1"><b>MTTE</b></td>
+  	  			<td bgcolor="#DCE8FA" align="right">{$r3[0]->MTTE|string_format:"%.2f"}</td>
+  	    	</tr>
+  	    	<tr class="tbl_header" align="center">
+  	    		<td colspan="2">Total Faults by Status</td>
+  	    	</tr>
+  	    	<tr bgcolor="#83A2D1">
+  	    		<td><b>Status</b></td>
+  	  			<td align="right"><b>Total Faults</b></td>
+  	    	</tr>
+  	    	{foreach from=$r4 item=row}
+  	    	<tr bgcolor="#DCE8FA">
+  	    		<td>{$row->status}</td><td align="right">{$row->Total}</td>
+  	    	</tr>
+  	    	{/foreach}  	    	
+  	    	<tr class="tbl_header" align="center">
+  	    		<td colspan="2">Total Solved Faults by Severity</td>
+  	    	</tr>
+  	    	<tr bgcolor="#83A2D1">
+  	    		<td><b>Severity</b></td>
+  	  			<td align="right"><b>Total Faults</b></td>
+  	    	</tr>
+  	    	{foreach from=$r5 item=row}
+  	    	<tr bgcolor="#DCE8FA">
+  	    		<td>{$row->severity}</td><td align="right">{$row->Total}</td>
+  	    	</tr>
+  	    	{/foreach}  	    	
+  	    	<tr class="tbl_header" align="center">
+  	    		<td colspan="2">MTTR by Severity</td>
+  	    	</tr>
+  	    	<tr bgcolor="#83A2D1">
+  	    		<td><b>Severity</b></td>
+  	  			<td align="right"><b>MTTR</b></td>
+  	    	</tr>
+  	    	{foreach from=$r6 item=row}
+  	    	<tr bgcolor="#DCE8FA">
+  	    		<td>{$row->severity}</td><td align="right">{$row->MTTR|string_format:"%.2f"}</td>
+  	    	</tr>
+  	    	{/foreach}  	    	
+  	    	<tr class="tbl_header" align="center">
+  	    		<td colspan="2">Total Escalated Faults by Severity</td>
+  	    	</tr>
+  	    	<tr bgcolor="#83A2D1">
+  	    		<td><b>Severity</b></td>
+  	  			<td align="right"><b>Total Faults</b></td>
+  	    	</tr>
+  	    	{foreach from=$r7 item=row}
+  	    	<tr bgcolor="#DCE8FA">
+  	    		<td>{$row->severity}</td><td align="right">{$row->Total}</td>
+  	    	</tr>
+  	    	{/foreach}
+  	    	
+  	    	<tr bgcolor="#83A2D1">
+  	    		<td><b>Total Remote Support</b></td><td align="right">{$r8[0]->Total}</td>
+  	    	</tr>
+  	    	
+  	    	</table>
+  	      {/if}
+  	    {/if}  
+  	  <!--TNM report ends here-->
+  	  
+  	  <!--NM_TX report starts here-->
+  	  {if $report eq 'nm_tx'}
+  	    <table  class="contentHeader" border="0" width="100%">
+  	        <tr>
+              <td class="contentHeaderText"></td>         
+            </tr>  	  
+  	    </table>
+  	    <table border="0">
+  	    	<!--Print MTTR & MTTE by ticket type-->
+  	    	<tr>
+  	    		<td>
+  	    			<table border="0" cellpadding="3">
+  	    				<tr class="tbl_header" align="center">
+  	    					<td>TR Type</td><td>Total TRs</td><td>MTTE(Hour)</td><td>MTTR(Hour)</td>
+  	    				</tr>  	    				
+  	    				<!--
+  	    				<tr class="tbl_header" align="center">
+  	    					<td>TR Type</td><td>Total TRs</td><td>Cleared TRs</td><td>Not Cleared TRs</td><td>MTTE(Hour)</td><td>MTTR(Hour)</td>
+  	    				</tr>  	    				
+  	    				<tr>
+  	    				  <td bgcolor="#83A2D1">Daily</td><td bgcolor="#DCE8FA" align="right">{$r5[0]->TOTAL}</td><td bgcolor="#DCE8FA" align="right">{$r6[0]->TOTAL_TR_DAILY_CLEARED}</td>
+  	    				  <td bgcolor="#DCE8FA" align="right">{$r5[0]->TOTAL_TR_DAILY-$r6[0]->TOTAL_TR_DAILY_CLEARED}</td><td bgcolor="#DCE8FA" align="right">{$r3[0]->MTTE|string_format:"%.2f"}</td><td bgcolor="#DCE8FA" align="right">{$r1[0]->MTTR|string_format:"%.2f"}</td>
+  	    				</tr>
+  	    				<tr>
+  	    				  <td bgcolor="#83A2D1">Quality</td><td bgcolor="#DCE8FA" align="right">{$r7[0]->TOTAL}</td><td bgcolor="#DCE8FA" align="right">{$r8[0]->TOTAL_TR_QUALITY_CLEARED}</td>
+  	    				  <td bgcolor="#DCE8FA" align="right">{$r7[0]->TOTAL_TR_QUALITY-$r8[0]->TOTAL_TR_QUALITY_CLEARED}</td><td bgcolor="#DCE8FA" align="right">{$r4[0]->MTTE|string_format:"%.2f"}</td><td bgcolor="#DCE8FA" align="right">{$r2[0]->MTTR|string_format:"%.2f"}</td>
+  	    				</tr>
+  	    				-->
+  	    				<tr>
+  	    				  <td bgcolor="#83A2D1">Daily</td><td bgcolor="#DCE8FA" align="right">{$r5[0]->TOTAL}</td><td bgcolor="#DCE8FA" align="right">{$r3[0]->MTTE|string_format:"%.2f"}</td><td bgcolor="#DCE8FA" align="right">{$r1[0]->MTTR|string_format:"%.2f"}</td>
+  	    				</tr>
+  	    				<tr>
+  	    				  <td bgcolor="#83A2D1">Quality</td><td bgcolor="#DCE8FA" align="right">{$r7[0]->TOTAL}</td><td bgcolor="#DCE8FA" align="right">{$r4[0]->MTTE|string_format:"%.2f"}</td><td bgcolor="#DCE8FA" align="right">{$r2[0]->MTTR|string_format:"%.2f"}</td>
+  	    				</tr>
+  	    			</table>
+  	    		</td>
+  	    	</tr>
+  	    	<!--Print MTTR & MTTE by severity-->
+  	    	<tr>
+  	    		<td>
+  	    			<table border="0" cellpadding="3">
+  	    				<tr class="tbl_header" align="center">
+  	    					<td>Severity</td><td>MTTE(Hour)</td><td>MTTR(Hour)</td>
+  	    				</tr>
+  	    				{foreach from=$mtte_mttr item=row}
+  	    				<tr>
+  	    				  <td bgcolor="#83A2D1">{$row->SEVERITY}</td><td bgcolor="#DCE8FA" align="right">{$row->MTTE|string_format:"%.2f"}</td><td bgcolor="#DCE8FA" align="right">{$row->MTTR|string_format:"%.2f"}</td>
+  	    				</tr>
+  	    				{/foreach}
+  	    				</table>
+  	    		</td>
+  	    	</tr>
+  	    	<!--Print indivisual MTTR & MTTE and 10 Tickets with higher MTTR & MTTE-->
+  	    	<!--
+  	    	<tr>
+  	    		<td>
+  	    			<table border="0">
+  	    				<tr  valign="top">
+  	    			    <td>
+  	    			    	<table border="0" cellpadding="3">
+  	    			    		<tr class="tbl_header" align="center"><td colspan="2">Indivisual MTTE (Daily TR)</td></tr>
+  	    			    		<tr bgcolor="#83A2D1">
+  	    			    			<td>User</td><td align="right">MTTE</td>
+  	    			    		</tr>
+  	    			    		{foreach from=$r10 item=row}
+  	    			    		<tr bgcolor="#DCE8FA">
+  	    			    			<td>{$row->ESCALATIONBY}</td><td align="right">{$row->MTTE_IND_DAILY|string_format:"%.2f"}</td>
+  	    			    		</tr>
+  	    			    		{/foreach}
+  	    			    	</table>
+  	    			    </td>
+  	    			    <td>
+  	    			    	<table border="0" cellpadding="3">
+  	    			    		<tr class="tbl_header" align="center"><td colspan="2">Indivisual MTTE (Quality TR)</td></tr>
+  	    			    		<tr bgcolor="#83A2D1">
+  	    			    			<td>User</td><td  align="right">MTTE</td>
+  	    			    		</tr>
+  	    			    		</tr>
+  	    			    		{foreach from=$r11 item=row}
+  	    			    		<tr bgcolor="#DCE8FA">
+  	    			    			<td>{$row->ESCALATIONBY}</td><td align="right">{$row->MTTE_IND_QUALITY|string_format:"%.2f"}</td>
+  	    			    		</tr>
+  	    			    		{/foreach}
+  	    			    	</table>
+  	    			    </td>
+  	    			    <td>
+  	    			    	<table border="0" cellpadding="3">
+  	    			    		<tr class="tbl_header" align="center"><td colspan="2">TRs Having High MTTE (Daily TR)</td></tr>
+  	    			    		<tr bgcolor="#83A2D1">
+  	    			    			<td align="center">TR No.</td><td  align="right">MTTE(Hour)</td>
+  	    			    		</tr>
+  	    			    		</tr>
+  	    			    		{foreach from=$r12 item=row}
+  	    			    		<tr bgcolor="#DCE8FA">
+  	    			    			<td align="center">{$row->TRNO}</td><td align="right">{$row->MTTE|string_format:"%.2f"}</td>
+  	    			    		</tr>
+  	    			    		{/foreach}
+  	    			    	</table>
+  	    			    </td>
+  	    			    <td>
+  	    			    	<table border="0" cellpadding="3">
+  	    			    		<tr class="tbl_header" align="center"><td colspan="2">TRs Having High MTTR (Daily TR)</td></tr>
+  	    			    		<tr bgcolor="#83A2D1">
+  	    			    			<td align="center">TR No.</td><td  align="right">MTTR(Hour)</td>
+  	    			    		</tr>
+  	    			    		</tr>
+  	    			    		{foreach from=$r13 item=row}
+  	    			    		<tr bgcolor="#DCE8FA">
+  	    			    			<td align="center">{$row->TRNO}</td><td align="right">{$row->MTTR|string_format:"%.2f"}</td>
+  	    			    		</tr>
+  	    			    		{/foreach}
+  	    			    	</table>
+  	    			    </td>
+  	    			  </tr>
+  	    		  </table>
+  	    		</td>
+  	    	</tr>
+  	    	-->
+  	    	<tr>
+  	    		<td>
+  	    			<table border="0" cellpadding="3">
+  	    			 	<tr class="tbl_header" align="center">
+  	    			 		<td>Transmission Outage Category</td><td>Duration(Hour)</td>
+  	    			 	</tr>
+  	    			 	{assign var="total" value="0"}
+  	    			 	{foreach from=$r9 item=row}
+  	    			 	<tr bgcolor="#DCE8FA">
+  	    			 		<td>{$row->reason}</td><td align="right">{$row->outage|string_format:"%.2f"}</td>
+  	    			 		{assign var="total" value="`$total+$row->outage`"}
+  	    			 	</tr>
+  	    			 	{/foreach}
+  	    			 	<tr bgcolor="#83A2D1">
+  	    			 		<td><b>Total</b></td><td align="right"><b>{$total|string_format:"%.2f"}</b></td>
+  	    			 	</tr>
+  	    			</table>
+  	    		</td>
+  	    	</tr>
+  	    </table>  	    	  
+  	  <!--NM_TX report ends here-->
+  	  {/if}
+  	  {if $report eq 'recurrent_fault'}
+  	  <table border="0" cellpadding="3">
+  	  	<tr class="tbl_header">
+  	  		<td>Problem Component</td><td align="center">No. of Tickets</td><td align="center">Ticket Details</td>
+  	  		{foreach from=$rec_faults item=row}
+  	  		<tr  bgcolor="#DCE8FA">
+  	  			<td>{$row->PROBLEM_COMPONENT}</td><td align="center">{$row->TOTAL}</td><td align="center"><a href="JavaScript:void(0);" onclick="showTRDetailsPopUP('{$row->PROBLEM_COMPONENT}', '{$start_date}', '{$end_date}');">Show</a></td>
+  	  		</tr>
+  	  		{/foreach}
+  	  	</tr>
+  	  </table>
+  	  {/if}
+  	  <!--Content Area Starts Here-->  	  
+  	  
+    </td>
+    <td align="left" width="10" background="/nm_tx/common/image/table/rht_border.gif"></td>
+  </tr>
+  <tr>
+    <td align="right" width="10" height="10"><img src="/nm_tx/common/image/table/bttm_lft.gif"></td>
+    <td background="/nm_tx/common/image/table/bttm_mid.gif"></td>
+    <td align="left" width="10" height="10"><img src="/nm_tx/common/image/table/bttm_rht.gif"></td>
+  </tr>
+</table>
+<!--end main contents table-->
+
+</html>

@@ -1,0 +1,151 @@
+{if $cmd neq ""}
+
+<script language="JavaScript" src="/ext/ajax/cpaint.inc.js"></script>
+
+<script language="JavaScript">
+
+   {foreach from=$user_list key=user item=this}
+      var user_{$user}_id = new Array();
+      var user_{$user}_name = new Array();
+
+      {assign var=i value=0}
+      {foreach from=$this item=uname key=uid}
+         user_{$user}_id[{$i}]   = '{$uid}'
+         user_{$user}_name[{$i}] = '{$uname}'
+         {assign var=i value=$i+1}
+      {/foreach}
+   {/foreach}
+
+   mem_id   = new Array();
+   mem_name = new Array();
+
+   {assign var=i value=0}
+   {foreach from=$team_member_list item=uname key=uid}
+      mem_id[{$i}]   = '{$uid}'
+      mem_name[{$i}] = '{$uname}'
+      {assign var=i value=$i+1}
+   {/foreach}
+
+</script>
+
+<body>
+
+<!--start main contents table-->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="right" width="10" height="10"><img src="/nm_tx/common/image/table/top_lft.gif"></td>
+    <td background="/nm_tx/common/image/table/top_mid.gif"></td>
+    <td align="left" width="10" height="10"><img src="/nm_tx/common/image/table/top_rht.gif"></td>
+  </tr>
+  <tr>
+    <td align="right" width="10" background="/nm_tx/common/image/table/lft_border.gif"></td>
+    <td bgcolor="#FFFFFF" align="left" class="contentArea">
+
+    <table  class="contentHeader" border="0" width="100%">
+    <tr>
+       <td class="contentHeaderText">Group Manager {if $group_id} [ <a class="hotlink" href="{$SCRIPT_NAME}?cmd=edit">Add Group</a> ] {/if}</td>
+       <td align="right" valign="top"><a class="hotlink" href="{$SCRIPT_NAME}">Back</a></td>
+    </tr>
+    {if $message ne ""}
+    <tr>
+       <td colspan="2"><div class="message">{$message|stripslashes}</div></td>
+    </tr>
+    {/if}
+    </table>
+    <br />
+
+    <!---------------------------------------->
+    <!--the application template starts here-->
+    <!---------------------------------------->
+    <form name="groupManagerForm" action="{$SCRIPT_NAME}" method="POST" onsubmit="return doFormSubmit();" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{$group_id}">
+    <input type="hidden" name="cmd" value="add">
+       <table border="0" >
+           <tr>
+               <td>
+               <label class="label" id="name">Group Name</label><br class="br"/>
+               <input type="text" name="name" value="{$name|stripslashes}" size="25" maxsize="50" onBlur="javascript:checkGroup();">
+               </td>
+               <td>
+               <label class="label" id="group_email">Email</label><br class="br"/>
+               <input type="text" name="group_email" value="{$group_email|stripslashes}" size="25" maxsize="128">
+               </td>               
+           </tr>
+       </table>
+       <br />
+        <table border="0" >
+           <tr>
+               <td>
+               <label class="label" id="desc">Description</label><br class="br"/>
+               <textarea name="description" cols="80" rows="10">{$description|stripslashes}</textarea>
+               </td>
+           </tr>
+       </table>              
+       <br/>
+       <table border="0">
+          <tr>
+          <td colspan=2><br class="br" />
+          <input type="submit" class="button" name="submit" {if $group_id ne ''} value=" Update " {else} value=" Save " {/if}>
+          <input type="reset"  class="button" name="submit" value=" Reset ">
+          </td>
+          </tr>
+       </table>
+
+    </form>
+    <!-------------------------------------->
+    <!--the application template ends here-->
+    <!-------------------------------------->
+
+    </td>
+    <td align="left" width="10" background="/nm_tx/common/image/table/rht_border.gif"></td>
+  </tr>
+  <tr>
+    <td align="right" width="10" height="10"><img src="/nm_tx/common/image/table/bttm_lft.gif"></td>
+    <td background="/nm_tx/common/image/table/bttm_mid.gif"></td>
+    <td align="left" width="10" height="10"><img src="/nm_tx/common/image/table/bttm_rht.gif"></td>
+  </tr>
+</table>
+<!--end main contents table-->
+
+{else}
+
+<!--start main contents table-->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="right" width="10" height="10"><img src="/nm_tx/common/image/table/top_lft.gif"></td>
+    <td background="/nm_tx/common/image/table/top_mid.gif"></td>
+    <td align="left" width="10" height="10"><img src="/nm_tx/common/image/table/top_rht.gif"></td>
+  </tr>
+  <tr>
+    <td align="right" width="10" background="/nm_tx/common/image/table/lft_border.gif"></td>
+    <td bgcolor="#FFFFFF" align="left" class="contentArea">
+
+    <table  class="contentHeader" border="0" width="100%">
+    <tr>
+       <td class="contentHeaderText">Available Group(s)</td>
+       <td align="right"><a class="hotlink" href="{$SCRIPT_NAME}?cmd=edit">Add a new Group</a></td>
+    </tr>
+    {if $message ne ""}
+    <tr>
+       <td colspan="2"><div class="message">{$message|stripslashes}</div></td>
+    </tr>
+    {/if}
+    </table>
+    <br />
+
+    <iframe src="{$SCRIPT_NAME}?cmd=list&status=Active" height="300px" width="100%" frameborder="0"></iframe>
+
+    </td>
+    <td align="left" width="10" background="/nm_tx/common/image/table/rht_border.gif"></td>
+  </tr>
+  <tr>
+    <td align="right" width="10" height="10"><img src="/nm_tx/common/image/table/bttm_lft.gif"></td>
+    <td background="/nm_tx/common/image/table/bttm_mid.gif"></td>
+    <td align="left" width="10" height="10"><img src="/nm_tx/common/image/table/bttm_rht.gif"></td>
+  </tr>
+</table>
+<!--end main contents table-->
+
+{/if}
+
+</body>

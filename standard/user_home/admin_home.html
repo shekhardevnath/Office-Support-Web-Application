@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>Transmission Network Manager</title>
+<link rel="stylesheet" href="{$SYSTEM_COMMON_CSS_DIR}/default.project.css" type="text/css">
+
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/messages.js"></script>
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/sorttable.js"></script>
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/CalendarPopup.js"></script>
+<script language="JavaScript" src="{$REL_TEMPLATE_DIR}/{$SYSTEM_APP_PREFIX}.js"></script>
+</head>
+
+<body>
+
+<!-- header include call starts here -->
+{include file=$USER_HEADER}
+<!-- header include call ends here -->
+
+<div class="mainContentArea" align="center">
+<table border="0" cellpadding="5" cellspacing="0" class="mainTable" width="100%">
+<tr>
+
+
+<td valign="top" width="10">
+
+   <!-- navigation sidebar starts here -->
+   <div id="nosidebar" style="display:none">
+   <a href='javascript:void(0)' onclick="showDiv('sidebar'); hideDiv('nosidebar');" title="Show Sidebar">
+   <img id="showSidebar" src="/nm_tx/common/image/table/max.gif" border="0" alt="Show Sidebar" onmouseover="showImg('showSidebar', '/nm_tx/common/image/table/max_hvr.gif');" onmouseout="showImg('showSidebar', '/nm_tx/common/image/table/max.gif');">
+   </a>
+   </div>
+
+   <div id="sidebar" style="display:inline">
+   <table width="200" border="0" cellspacing="0" cellpadding="0">
+   <tr>
+      <td align="right" width="10" height="10"><img src="/nm_tx/common/image/table/top_lft.gif"></td>
+      <td background="/nm_tx/common/image/table/top_mid.gif"></td>
+      <td align="left" width="10" height="10"><img src="/nm_tx/common/image/table/top_rht.gif"></td>
+   </tr>
+   <tr>
+      <td align="right" width="10" background="/nm_tx/common/image/table/lft_border.gif"></td>
+      <td bgcolor="#FFFFFF" align="left">
+
+      <!-- navigation include call starts here -->
+      {include file=$USER_NAVIGATION}
+      <!-- navigation include call ends here -->
+
+      </td>
+      <td align="left" width="10" background="/nm_tx/common/image/table/rht_border.gif"></td>
+   </tr>
+   <tr>
+      <td align="right" width="10" height="10"><img src="/nm_tx/common/image/table/bttm_lft.gif"></td>
+      <td background="/nm_tx/common/image/table/bttm_mid.gif"></td>
+      <td align="left" width="10" height="10"><img src="/nm_tx/common/image/table/bttm_rht.gif"></td>
+   </tr>
+   </table>
+   </div>
+   <!-- navigation sidebar ends here -->
+
+</td>
+
+<td valign="top">
+<!-- main contents block starts here -->
+{$contents}
+<!-- main contents block ends here -->
+</td>
+
+<td width="10">&nbsp;</td>
+</tr>
+</table>
+
+<!-- footer include call starts here -->
+{include file=$smarty.const.FOOTER}
+<!-- footer include call ends here -->
+<div>
+
+</body>
+</html>

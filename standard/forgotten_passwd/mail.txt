@@ -1,0 +1,7 @@
+Dear {$first_name} {$last_name},
+
+We received a password request for your account: <b>{$username}</b>
+Your new password is : <b>{$newPass}</b>
+
+Thank you,
+Operations Team

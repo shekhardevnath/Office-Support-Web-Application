@@ -1,0 +1,38 @@
+{if $USER_TYPE eq 'BO'}
+  <script language="JavaScript" src="/nm_tx/ext/prototype/prototype.js"></script>
+  <script language="JavaScript" src="/nm_tx/fault_popup_manager/fault_popup_manager.js"></script>
+  
+  {if $type eq 'Transport'}
+    <script language="JavaScript" src="/nm_tx/others_popup_manager/alarm_follow_up.js"></script>
+  {/if}		
+  
+  <!--
+  <script language="JavaScript" src="/nm_tx/others_popup_manager/long_duration_sites.js"></script>	
+  -->
+{/if}
+<!--Alart for Radio Team-->
+{if $SUB_GROUP_ID eq 2}
+  <script language="JavaScript" src="/nm_tx/others_popup_manager/long_time_outage.js"></script>	
+{/if}
+<!-- Show NMS monitoring alert for Surveillance -->
+{if $USERNAME eq 'amahbubul' or $USERNAME eq 'msaiful'}
+  <script language="JavaScript" src="/nm_tx/fault_popup_manager/nms_monitoring_alert.js"></script>	
+{/if}
+
+<table width="100%" border="0" bgcolor="black">
+	<tr>
+		<td width="20%" align="left"><img src="{$SYSTEM_COMMON_IMAGE_DIR}/Logo.png" height="100" width="100"></td>		
+   	<td align="center" nowrap><font size="5" color="#0f84ac" style="font-family: Telenor">SOC Back Office Support</font></td>   	
+   	<td width="20%" align="right">
+   		<font color="white">Welcome, <b><i>{$USERNAME} [{if $type ne ""} {$type} {else} All {/if}]</i></b>!</font><br>
+   		{if $USER_TYPE eq "BO"}
+   		  <br>
+   		  <iframe src ="/nm_tx/acvt_manager/acvt_manager.php?page=performance_data" width="210" align="right" height="40" scrolling="no" frameborder="0" id="iframe_data"></iframe>   		  
+   		{/if}
+   		<br><br><br><br>
+   		<div align="right">   		
+		    <a href="/nm_tx/standard/logout/logout.php"><b>Logout</b></a>		   		
+		  <div>
+   	<td>
+  </tr>  
+</table>

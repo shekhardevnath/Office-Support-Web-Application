@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>Forgotten Password</title>
+
+{if $SYSTEM_PRODUCTION_MODE ne "Yes"}
+<!--
+
+ ** THIS NOTE ONLY SHOWS IN DEVELOPMENT MODE ***
+
+ Purpose:
+ This template is used to show the forgotten password reset link request form
+
+ -->
+{/if}
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<!-- load the standard cascading style sheet -->
+<link rel="stylesheet" href="{$SYSTEM_COMMON_CSS_DIR}/default.project.css" type="text/css">
+
+<!-- load javascript error/success messages for javascripts -->
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/messages.js"></script>
+
+<!-- load standard javascript library for apps -->
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+
+<!-- load current application specific javascript -->
+<script language="JavaScript" src="{$REL_TEMPLATE_DIR}/{$SYSTEM_APP_PREFIX}.js"></script>
+
+</head>
+
+<body class="whiteBody">
+<br />
+<br />
+<div align="center">
+<table width="450" border="0" cellspacing="0" cellpadding="0">
+<tr>
+  <td colspan="3" bgcolor="#000000"><img src="/nm_tx/common/image/dark_blue.gif" width="1" height="1"></td>
+  </tr>
+  <tr>
+    <td rowspan="3"><img src="/nm_tx/common/image/login/mainLeft.png" width="47" height="212"></td>
+    <td>
+	<table width="100%"  border="0" cellspacing="0" cellpadding="5">
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Forgotten Password Reset Status...</strong></td>
+
+
+</tr>
+	</table></td>
+    <td rowspan="3" align="right"><img src="/nm_tx/common/image/login/mainRight.png" width="41" height="212"></td>
+  </tr>
+  <tr>
+    <td>
+	<table width="100%"  border="0" cellspacing="0" cellpadding="5">
+      <tr><td>
+
+  <p>
+  {$status|stripslashes|nl2br}
+  </p>
+  <a href="{$smarty.const.USER_HOME_URL}" class="contentlink">Return to Home</a>
+  </td>
+</tr>
+
+<!-- button block starts here -->
+
+</table></td>
+  </tr>
+  <tr>
+    <td valign="bottom"><img src="/nm_tx/common/image/login/mainMiddle.png" width="372" height="32"></td>
+  </tr>
+<input type=hidden name="cmd" value="">
+
+</form>
+</table>
+
+</div>
+</body>
+</html>

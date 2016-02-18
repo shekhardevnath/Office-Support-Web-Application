@@ -1,0 +1,206 @@
+body {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+	margin-left:0px;
+	margin-top:5px;
+	margin-right:0px;
+	margin-bottom:5px;
+	background-color: #000000;
+}
+
+.whiteBody {
+	background-color: #FFFFFF;
+}
+
+td {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+select {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  background-color: #E8ECF5;
+	border: 1px solid #666699;
+}
+
+input {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  background-color: #E8ECF5;
+  border: 1px solid #666699;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+textarea {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  background-color: #E8ECF5;
+	border: 1px solid #666699;
+}
+
+.button {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  color: #000000;
+  background-color: #D6E1F2;
+  border: 1px #666699;
+  border-style: outset;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.message
+{
+  text-align: center;
+  padding-top: 5px;
+}
+
+.label {
+  font-weight: bold;
+  color: #557799;
+}
+
+.hotlink {
+  color: 336699;
+  text-decoration: underline;
+}
+
+.coldlink {
+  color: 444444;
+  text-decoration: none;
+}
+
+.tbl_header {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #0082C6;
+  line-height: 18px
+}
+
+.tbl_header a {
+  color: #FFFFFF;
+}
+
+.reportEvenRow {
+  color: #000000;
+  background-color: #EDF2F9;
+  text-decoration: none;
+}
+
+.reportEvenRow a {
+  color: #336699;
+}
+
+.reportOddRow {
+  background-color: #DCE8FA;
+  text-decoration: none;
+}
+
+.reportOddRow a {
+  color: #336699;
+}
+
+.reportRowSelected {
+  background-color: #BBCCDD;
+  cursor: pointer;
+}
+
+.reportRowSelected a {
+  color: #336699;
+}
+
+.tableBorder {
+  border: 1px solid #B7D1F9;
+}
+
+.tableBorderBold {
+  border: 2px solid #B7D1F9;
+}
+
+.noBorder
+{
+  background-color: #FFFFFF;
+	border: none;
+}
+
+.contentHeader {
+  background-color: #9CDFFF;
+  padding: 3px;
+}
+
+.contentHeaderText {
+  font-size: 15px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.contentHeaderText a {
+  font-size: 11px;
+  font-weight: normal;
+  color: #336699;
+}
+
+.contentArea {
+	padding: 3px;
+}
+
+.mainTable {
+	background-color: #000000;
+}
+
+.mainContentArea {
+	padding: 10px;
+}
+
+.navHeader {
+	background-color: #D6E1F2;
+	margin: 0px;
+	padding: 3px;
+}
+
+.navHeader a {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+	color: #336699;
+}
+
+.nav {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+	color: #336699;
+}
+
+.nav a {
+	color: #336699;
+}
+
+.nav a:hover {
+	color: #990000;
+}
+
+.navOn {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+	color: #000000;
+}
+
+.headerBackground {
+	background: url(/app_contents/common/image/001.gif);
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+
+.footerBackground {
+	border: 1px solid #FFFFFF;
+	background-color: #B3C6E3;
+}

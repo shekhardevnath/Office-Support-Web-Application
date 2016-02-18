@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>Forgotten Password Reset Form</title>
+
+{if $SYSTEM_PRODUCTION_MODE ne "Yes"}
+<!--
+
+ ** THIS NOTE ONLY SHOWS IN DEVELOPMENT MODE ***
+
+ Purpose:
+ This template is used to show the forgotten password reset link request form
+
+-->
+{/if}
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<!-- load the standard cascading style sheet -->
+<link rel="stylesheet" href="{$SYSTEM_COMMON_CSS_DIR}/default.project.css" type="text/css">
+
+<!-- load javascript error/success messages for javascripts -->
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/messages.js"></script>
+
+<!-- load standard javascript library for apps -->
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+
+<!-- load current application specific javascript -->
+<script language="JavaScript" src="{$REL_TEMPLATE_DIR}/{$SYSTEM_APP_PREFIX}.js"></script>
+
+
+<!-- setup default info -->
+<script language="JavaScript">
+
+ //
+ // Set cancel URL
+ //
+ {if $cancel_url ne ""}
+    var CANCEL_URL = "{$cancel_url}";
+ {else}
+    // Default cancel
+    var CANCEL_URL = "{$smarty.const.USER_HOME_URL}";
+
+ {/if}
+
+ //
+ // Generate error information (if any)
+ //
+ var alertPopup        = false;
+ var errorMsgList      = new Array();
+ var errorMsgFieldList = new Array();
+ var i = 0;
+
+ {if $errors ne ""}
+
+   // Show alert() message for errors?
+
+   {section name=row loop=$errors}
+      errorMsgList[i]      = "{$errors[row].javascript_error_msg}";
+      errorMsgFieldList[i] = "{$errors[row].error_field}";
+      i++;
+   {/section}
+
+ {/if}
+
+</script>
+</head>
+
+<!-- the onLoad function showErrors() displays errors (if any) -->
+<body class="whiteBody">
+<br />
+<br />
+<div align="center">
+<table width="450" border="0" cellspacing="0" cellpadding="0">
+<form name="forgotpwdChangeForm"
+      onSubmit="return doforgotpwdChangeFormSubmit(null,{$smarty.const.MIN_PASSWORD_SIZE}, {$smarty.const.MAX_PASSWORD_SIZE});"
+      action="{$SYSTEM_PHP_SELF}" method="GET">
+
+<tr>
+  <td colspan="3" bgcolor="#000000"><img src="/nm_tx/common/image/qaqc/dark_blue.gif" width="1" height="1"></td>
+  </tr>
+  <tr>
+    <td rowspan="3"><img src="/nm_tx/common/image/login/mainLeft.PNG" width="47" height="212"></td>
+    <td>
+	<table width="100%"  border="0" cellspacing="0" cellpadding="5">
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Password Reset Request</strong>
+
+<!-- error row start -->
+{if $errors ne ""}
+
+   {section name=row loop=$errors}
+     {$errors[row].html_error_msg}</br>
+   {/section}
+
+{/if}
+<!-- error row end -->
+</td>
+		</tr>
+	</table></td>
+    <td rowspan="3" align="right"><img src="/nm_tx/common/image/login/mainRight.png" width="41" height="212"></td>
+  </tr>
+  <tr>
+    <td>
+	<table width="100%"  border="0" cellspacing="0" cellpadding="5">
+      <tr>
+
+<!-- password row start -->
+<tr>
+<td id="password" class="field_label"> New Password</td>
+<td class="field_value">
+<input class="textfield" size=30 type="password" name="password" value="{$password}">
+</td>
+</tr>
+<!-- password row end -->
+
+<!-- password2 row start -->
+<tr>
+<td width="29%" id="password2" class="field_label"> Confirm Password</td>
+<td class="inputFields">
+<input class="textfield" size=30 type="password" name="password2" value="{$password2}">
+</td>
+</tr>
+<!-- password2 row end -->
+
+
+<!-- button block starts here -->
+<tr>
+<td align="right" class="field_label">&nbsp; </td>
+<td class="inputFields">
+<input class="button" type="submit" value=" Change Password ">
+&nbsp;&nbsp;&nbsp;
+<input class="button" type="button" onClick="return doCancel();"  value=" Cancel ">
+</td>
+</tr>
+<!-- button block ends here -->
+
+
+</table></td>
+  </tr>
+  <tr>
+    <td valign="bottom"><img src="/nm_tx/common/image/login/mainMiddle.png" width="372" height="32"></td>
+  </tr>
+<input type=hidden name="cmd" value="{$cmd}">
+
+</form>
+</table>
+
+</div>
+</body>
+</html>

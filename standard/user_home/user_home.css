@@ -1,0 +1,21 @@
+.tab{
+	font-family: Telenor, verdana, arial, sans-serif; 
+	font-size: 14px;
+	color: #0f84ac;
+}
+.asd{
+	text-decoration: none; 
+	font-family: Telenor, verdana, arial, sans-serif; 
+	font-size: 13px; 
+	color: #4234ff;	
+}
+.menueBorderLeft{
+	border-left: 2px solid #ffffff;	
+}
+.menueBorderRight{	
+	border-right: 2px solid #ffffff;
+}
+.menueBorder{
+	border-left: 2px solid #ffffff;		
+	border-right: 2px solid #ffffff;
+}

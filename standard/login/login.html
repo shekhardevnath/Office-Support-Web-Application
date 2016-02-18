@@ -1,0 +1,159 @@
+<html>
+<head>
+<title>User Login</title>
+
+{if $SYSTEM_PRODUCTION_MODE ne "Yes"}
+<!--
+
+ ** THIS NOTE ONLY SHOWS IN DEVELOPMENT MODE ***
+
+ Purpose:
+ This template is used to show the login form
+
+-->
+{/if}
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<!-- load the standard cascading style sheet -->
+<link rel="stylesheet" href="{$SYSTEM_COMMON_CSS_DIR}/default.project.css" type="text/css">
+
+<!-- load javascript error/success messages for javascripts -->
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/messages.js"></script>
+
+<!-- load standard javascript library for apps -->
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+
+<!-- load current application specific javascript -->
+<script language="JavaScript" src="{$REL_TEMPLATE_DIR}/{$SYSTEM_APP_PREFIX}.js"></script>
+
+<!-- setup default info -->
+<script language="JavaScript">
+
+ //
+ // Set cancel URL
+ //
+ {if $cancel_url ne ""}
+    var CANCEL_URL = "{$cancel_url}";
+ {else}
+    // Default cancel
+    var CANCEL_URL = "/";
+
+ {/if}
+
+ //
+ // Generate error information (if any)
+ //
+ var alertPopup        = false;
+ var errorMsgList      = new Array();
+ var errorMsgFieldList = new Array();
+ var i = 0;
+
+ {if $errors ne ""}
+
+   // Show alert() message for errors?
+
+   {section name=row loop=$errors}
+      errorMsgList[i]      = "{$errors[row].javascript_error_msg}";
+      errorMsgFieldList[i] = "{$errors[row].error_field}";
+      i++;
+   {/section}
+
+ {/if}
+
+</script>
+<link rel="stylesheet" href="/nm_tx/common/css/default.project.css" type="text/css">
+
+</head>
+
+<!-- the onLoad function showErrors() displays errors (if any) -->
+<body onLoad="showErrors(document.loginForm);">
+	
+<table border="0" cellspacing="0" cellpadding="0" width="100%" bgcolor="black">
+	<tr>
+		<td style="width: 100px"></td>
+	  <td>
+	  	<table border="0" cellpadding="0" cellspacing="1" width="100%" bgcolor="white">
+	  		<tr>
+	  			<td>
+	  				<table width="100%" border="0" bgcolor="black">
+            	<tr>
+            		<td width="33%" align="left"><img src="{$SYSTEM_COMMON_IMAGE_DIR}/Logo.png" height="120" width="120"></td>		
+               	<td align="center" nowrap><font size="5" color="#0f84ac" style="font-family: Telenor">SOC Back Office Support</font></td>   	
+               	<td width="33%" align="right">&nbsp<td>
+              </tr>
+            </table>
+	  			</td>	  			
+	  		</tr>
+	  		<tr>
+	  			<td height="650" background="{$SYSTEM_COMMON_IMAGE_DIR}/back8.gif">
+	  				<div align="center">
+              <table width="450" border="0" cellspacing="0" cellpadding="0" bgcolor="white">
+              <form name="loginForm" onSubmit="return dologinFormSubmit();" action="{$SCRIPT_NAME}" method="POST">
+                <tr>
+                <td colspan="3" bgcolor="#000000"><img src="/nm_tx/common/image/qaqc/dark_blue.gif" width="1" height="1"></td>
+                </tr>
+                <tr>
+                  <td rowspan="3"><img src="/nm_tx/common/image/login/mainLeft.png" width="47" height="212"></td>
+                  <td>
+              	<table width="100%"  border="0" cellspacing="0" cellpadding="5">
+              		<tr>
+              			<td>&nbsp;</td>
+              		</tr>
+              		<tr>
+              			<td class="text" align="center">
+              				<strong>Type:</strong>
+              				<select name="type">
+              					<option value="">Select One</option>
+              					<option value="CSN">CSN</option>
+              					<option value="Radio">Radio</option>
+              					<option value="Transport">Transport</option>
+              				</select>
+              				<strong>(For BO Users Only)</strong>
+              			</td>
+              		</tr>
+              	</table></td>
+                  <td rowspan="3" align="right"><img src="/nm_tx/common/image/login/mainRight.png" width="41" height="212"></td>
+                </tr>
+                <tr>
+                  <td><table width="100%"  border="0" cellspacing="0" cellpadding="5">
+                    <tr>
+                      <td width="29%" align="right" id="loginid" class="field_label">{$smarty.const.LOGIN_ID_FIELD|ucfirst}</td>
+                      <td width="71%" class="inputFields"><input class="textfield" size=30 type="text" name="loginid" value="{$loginid}"></td>
+                    </tr>
+                    <tr>
+                      <td align="right" class="field_label" id="password">Password</td>
+                      <td class="inputFields"><input class="textfield" size=30 type="password" name="password" value="{$password}"></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td class="inputFields"><input class="button" type="submit" value=" Login ">&nbsp;&nbsp;&nbsp;<input class="button" type="button" onClick="return doCancel();"  value=" Cancel "></td>
+                    </tr>
+                    <tr>
+                    	<td>&nbsp</td>
+                    	<td><input type="checkbox" name="remember_me" checked> Remember Me</td>
+                    </tr>
+                  </table></td>
+                </tr>
+                <tr>
+                  <td valign="bottom"><img src="/nm_tx/common/image/login/mainMiddle.png" width="372" height="32"></td>
+                </tr>
+              <input type=hidden name="cmd" value="">
+              
+              </form>
+              </table>            
+            </div>
+	  			</td>	  			
+	  		</tr>
+	  		<tr>
+	  			<td>
+	  				{include file=$smarty.const.FOOTER}
+	  			</td>	  			
+	  		</tr>
+	    </table>	
+	  </td>
+	  <td style="width:100px"></td>
+	</tr>
+</table>
+</body>
+</html>

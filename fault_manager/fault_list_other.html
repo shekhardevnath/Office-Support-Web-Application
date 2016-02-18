@@ -1,0 +1,136 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="{$SYSTEM_COMMON_CSS_DIR}/default.project.css" type="text/css">
+    <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/messages.js"></script>
+    <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+    <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/sorttable.js"></script>
+    <script>
+    	var myTable = new SortTable("myTable");
+    	//Add the coloums of the table as name,attribute,alignment,content type
+      myTable.AddColumn("Fault NO.",        "", "center",   "");
+      myTable.AddColumn("Category",         "", "left",     "");
+      myTable.AddColumn("Components",       "", "left",     "");
+      myTable.AddColumn("NodeA",            "", "left",     "");
+      myTable.AddColumn("NodeB",            "", "left",     "");      
+      myTable.AddColumn("Impact",           "", "left",     "");
+      myTable.AddColumn("Finding",          "", "left",     "");      
+      myTable.AddColumn("Attachment",       "", "center",   "");      
+      myTable.AddColumn("Status",           "", "center",   "");      
+      myTable.AddColumn("Severity",         "", "center",   "");      
+      myTable.AddColumn("Submit By",        "", "center",   "");     
+      myTable.AddColumn("Last Updated By",  "", "center",   ""); 
+      myTable.AddColumn("View_Detail",      "", "center",   "");
+      
+      var i=1;
+      
+      {foreach from=$list item=item}
+        {if $item->attachment eq ''}
+         myTable.AddLine("{$item->fault_id}","{$item->problem_category}","{$item->problem_component}","{$item->node_a}","{$item->node_b}","{$item->impact}","{$item->finding}","","<b>{$item->status}</b>","{$item->severity}","{$item->submit_by}<br>({$item->submit_date})","{$item->last_updated_by}<br>({$item->last_update_date})","<a href={$SCRIPT_NAME}?cmd=show_details&fault_id={$item->fault_id}>View</a>");
+        {else} 
+         myTable.AddLine("{$item->fault_id}","{$item->problem_category}","{$item->problem_component}","{$item->node_a}","{$item->node_b}","{$item->impact}","{$item->finding}","<a href='{$item->attachment}' target='_blank'>Show</a>","<b>{$item->status}</b>","{$item->severity}","{$item->submit_by}<br>({$item->submit_date})","{$item->last_updated_by}<br>({$item->last_update_date})","<a href={$SCRIPT_NAME}?cmd=show_details&fault_id={$item->fault_id}>View</a>");
+        {/if}
+        
+        if(i%2==0)
+         myTable.AddLineProperties("class='reportEvenRow' onmouseover=\"this.className='reportRowSelected';\" onmouseout=\"this.className='reportEvenRow';\"");
+        else
+         myTable.AddLineProperties("class='reportOddRow'  onmouseover=\"this.className='reportRowSelected';\" onmouseout=\"this.className='reportOddRow';\"");
+
+        ++i;
+      {/foreach}
+    </script>
+	</head>
+
+<!--start main contents table-->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="right" width="10" height="10"><img src="/nm_tx/common/image/table/top_lft.gif"></td>
+    <td background="/nm_tx/common/image/table/top_mid.gif"></td>
+    <td align="left" width="10" height="10"><img src="/nm_tx/common/image/table/top_rht.gif"></td>
+  </tr>
+  <tr>
+    <td align="right" width="10" background="/nm_tx/common/image/table/lft_border.gif"></td>
+    <td bgcolor="#FFFFFF" align="left" class="contentArea" background="{$SYSTEM_COMMON_IMAGE_DIR}/back1.png">
+    	
+    	<table  class="contentHeader" border="0" width="100%">
+  	  <tr>
+  	    <tr>
+          <td class="contentHeaderText">Available Network Faults</td>         
+        </tr>
+  	   </tr>
+  	  </table>
+    	<br>    	
+    	<!--Start of search and pagination area-->    	
+    	<table border="0" width="100%">
+    		<tr>
+    			<td>
+    				<table border="0">
+    					<form name="showFaultForm" action="{$SCRIPT_NAME}" method="POST" enctype="multipart/form-data">
+    					<tr>
+    						<td>
+    							<label class="label">User</label><br>
+    							<select name="user" onChange="JavaScript:document.showFaultForm.submit();">
+    								<option value="">All</option>
+  	  					    {html_options values=$user_list output=$user_list selected=$user}
+  	  				    </select>
+    						</td>
+    						<td>
+    							<label class="label">Status</label><br>
+    							<select name="status" onChange="JavaScript:document.showFaultForm.submit();">
+    								<option value="">All</option>
+  	  					    {html_options values=$status_list output=$status_list selected=$status}
+  	  				    </select>
+    					  </td> 
+    					</tr>
+    				  </form>
+    				</table>
+    			</td>
+    			<!--Codes for Pagination starts here-->
+    			<td align="right">
+    				<label class="label">Go To Page:</label>  				
+    				{section loop=$num_of_pages name=pagination_loop}
+              {if $displayed_page eq $smarty.section.pagination_loop.iteration}
+                  <b>{$smarty.section.pagination_loop.iteration}</b>
+              {else}                 
+                 <a class="hotlink" href="{$SCRIPT_NAME}?start={$smarty.section.pagination_loop.iteration*$rows_per_page-$rows_per_page}{if $user ne ''}&user={$user}{/if}{if $status ne ''}&status={$status}{/if}">{$smarty.section.pagination_loop.iteration}</a>
+              {/if}
+            {/section}
+    			</td>
+    			<!--Codes for Pagination ends here-->
+    		</tr>
+    		</tr>
+    	</table>    	
+    	<!--End of search and pagination area-->
+    	
+    	<br>
+    	<table bgcolor="#FFFFFF" border="0" width="100%">
+    		<tr class="tbl_header" align="center">
+    			<td>Fault No.</td>
+    			<td>Category</td>
+    			<td>Component</td>
+    			<td>Node A</td>
+    			<td>Node B</td>
+    			<td>Impact</td>
+    			<td>Findings</td>
+    			<td>Attachment</td>
+    			<td>Status</td>
+    			<td>Severity</td>
+    			<td>Submit By</td>    			
+    			<td>Last Updated By</td>
+    			<td>View Details</td>
+    		</tr>
+        <script>
+      	  myTable.WriteRows();
+        </script>
+      </table>
+    </td>
+    <td align="left" width="10" background="/nm_tx/common/image/table/rht_border.gif"></td>
+  </tr>
+  <tr>
+    <td align="right" width="10" height="10"><img src="/nm_tx/common/image/table/bttm_lft.gif"></td>
+    <td background="/nm_tx/common/image/table/bttm_mid.gif"></td>
+    <td align="left" width="10" height="10"><img src="/nm_tx/common/image/table/bttm_rht.gif"></td>
+  </tr>
+</table>
+<!--end main contents table-->
+
+</html>

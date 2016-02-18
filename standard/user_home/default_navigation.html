@@ -1,0 +1,177 @@
+<!--hide nevigation bar starts-->
+<table border="0" width="100%">
+<tr>
+   <td align="right">
+   <a href='javascript:void(0)' onclick="hideDiv('sidebar'); showDiv('nosidebar');" title="Hide Sidebar">
+   <img id="hideSidebar" src="/nm_tx/common/image/table/close.gif" border="0" alt="Hide Sidebar" onmouseover="showImg('hideSidebar', '/nm_tx/common/image/table/close_hvr.gif');" onmouseout="showImg('hideSidebar', '/nm_tx/common/image/table/close.gif');">
+   </a>
+   </td>
+</tr>
+</table>
+<!--hide nevigation bar ends-->
+
+<table border="0" width="100%">
+<tr>
+   {if $nav_item eq "home"}
+      <td class="navOn">Home</td>
+   {else}
+      <td class="nav"><a href="/nm_tx/home.php">Home</a></td>
+   {/if}
+</tr>
+<tr>
+   <td class="nav"><a href="/nm_tx/standard/logout/logout.php">Logout</a></td>
+</tr>
+</table>
+
+<br />
+
+<!--the nevigations for 'Fault Manager' starts-->
+<table class="navHeader" border="0" width="100%">
+<tr>
+   <td width="10"><img src="/nm_tx/common/image/table/mini_arrowright.gif"></td>
+   <td>
+   <a href='javascript:void(0)' onclick="toggle('system');">Fault Manager</a>
+   </td>
+</tr>
+</table>
+
+<div id="system">
+<table border="0" width="100%">
+<tr>
+   <td>&nbsp;</td>
+   <td>
+      <table width="100%">
+         <tr>
+         {if $nav_item eq "fault_entry"}
+            <td class="navOn">Fault Entry</td>
+         {else}
+            <td class="nav"><a href="/nm_tx/fault_manager/fault_manager.php?cmd=edit">Fault Entry</a></td>
+         {/if}
+         </tr>
+         <tr>
+         {if $nav_item eq "fault_view"}
+            <td class="navOn">Fault View</td>
+         {else}
+            <td class="nav"><a href="/nm_tx/fault_manager/fault_manager.php">Fault View</a></td>
+         {/if}
+         </tr>
+         <tr>
+         {if $nav_item eq "fault_search"}
+            <td class="navOn">Fault Search</td>
+         {else}
+            <td class="nav"><a href="/nm_tx/search_page/search_page.php">Fault Search</a></td>
+         {/if}
+         </tr>
+      </table>
+   </td>
+</tr>
+</table>
+</div>
+<!--the nevigations for 'Fault Manager' ends-->
+
+<!--the nevigations only for NM_TX starts-->
+{if $USER_TYPE eq 'NM_TX'}
+<!--
+<br />
+<table class="navHeader" border="0" width="100%">
+<tr>
+   <td width="10"><img src="/nm_tx/common/image/table/mini_arrowright.gif"></td>
+   <td>
+   <a href='javascript:void(0)' onclick="toggle('system1');">TR Follow Up</a>
+   </td>
+</tr>
+</table>
+
+<div id="system1">
+<table border="0" width="100%">
+<tr>
+   <td>&nbsp;</td>
+   <td>
+      <table width="100%">
+         <tr>
+         {if $nav_item eq "show_trs"}
+            <td class="navOn">Show SLA Failed TRs</td>
+         {else}
+            <td class="nav"><a href="/nm_tx/tr_follow_up/tr_follow_up.php">Show SLA Failed TRs</a></td>
+         {/if}
+         </tr>         
+      </table>
+   </td>
+</tr>
+</table>
+</div>
+-->
+<br />
+<table class="navHeader" border="0" width="100%">
+<tr>
+   <td width="10"><img src="/nm_tx/common/image/table/mini_arrowright.gif"></td>
+   <td>
+   <a href='javascript:void(0)' onclick="toggle('system2');">Remote Support</a>
+   </td>
+</tr>
+</table>
+
+<div id="system2">
+<table border="0" width="100%">
+<tr>
+   <td>&nbsp;</td>
+   <td>
+      <table width="100%">
+         <tr>
+         {if $nav_item eq "support_entry"}
+            <td class="navOn">Support Entry</td>
+         {else}
+            <td class="nav"><a href="/nm_tx/remote_support/remote_support.php">Support Entry</a></td>
+         {/if}
+         </tr>         
+      </table>
+   </td>
+</tr>
+</table>
+</div>
+
+<br />
+<table class="navHeader" border="0" width="100%">
+<tr>
+   <td width="10"><img src="/nm_tx/common/image/table/mini_arrowright.gif"></td>
+   <td>
+   <a href='javascript:void(0)' onclick="toggle('system3');">Others</a>
+   </td>
+</tr>
+</table>
+
+<div id="system3">
+<table border="0" width="100%">
+<tr>
+   <td>&nbsp;</td>
+   <td>
+      <table width="100%">
+      	 <tr>
+         {if $nav_item eq "show_trs"}
+            <td class="navOn">Show Open Tickets</td>
+         {else}
+            <td class="nav"><a href="/nm_tx/tr_follow_up/tr_follow_up.php">Show Open Tickets</a></td>
+         {/if}
+         </tr>
+         <tr>
+         {if $nav_item eq "nms"}
+            <td class="navOn">NMS Monitoring</td>
+         {else}
+            <td class="nav"><a href="/nm_tx/nms_monitoring/nms_monitoring.php">NMS Monitoring</a></td>
+         {/if}
+         </tr>                  
+         <tr>
+         {if $nav_item eq "imp_links"}
+            <td class="navOn">Important Links</td>
+         {else}
+            <td class="nav"><a href="/nm_tx/imp_links/imp_links.php">Important Links</a></td>
+         {/if}
+         </tr>         
+      </table>
+   </td>
+</tr>
+</table>
+</div>
+{/if}
+<!--the nevigations only for NM_TX ends-->
+<br />

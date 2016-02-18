@@ -1,0 +1,72 @@
+<html>
+<head>
+<link rel="stylesheet" href="{$SYSTEM_COMMON_CSS_DIR}/default.project.css" type="text/css">
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/messages.js"></script>
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/sorttable.js"></script>
+
+<script>
+   var myTable = new SortTable("myTable");
+
+   //Add the coloums of the table as name,attribute,alignment,content type
+   myTable.AddColumn("Name",         "", "left",   "");      
+   myTable.AddColumn("Group Email",  "", "center", "");   
+   myTable.AddColumn("Create Date",  "", "center", "");
+   myTable.AddColumn("Action",       "", "center", "");
+
+   var i = 1;
+
+   //Now populate the coloums with the group data
+   {foreach from=$list item=item}
+      myTable.AddLine("{$item->name}","{$item->group_email}","{$item->create_date|date_format:'%m/%d/%Y'}","<a href='{$SCRIPT_NAME}?id={$item->group_id}&cmd=edit' target='_top'>Edit</a>&nbsp;|&nbsp;<a onClick='return doConfirm(PROMPT_DELETE_CONFIRM);' href='{$SCRIPT_NAME}?id={$item->group_id}&cmd=delete' target='_top'>Delete<a/>");
+
+      if(i%2==0)
+         myTable.AddLineProperties("class='reportEvenRow' onmouseover=\"this.className='reportRowSelected';\" onmouseout=\"this.className='reportEvenRow';\"");
+      else
+         myTable.AddLineProperties("class='reportOddRow'  onmouseover=\"this.className='reportRowSelected';\" onmouseout=\"this.className='reportOddRow';\"");
+
+      ++i;
+   {/foreach}
+
+</script>
+</head>
+
+<body class="whiteBody">
+   {if $list}
+   <table bgcolor="#FFFFFF" border="0" width="100%">
+      <SCRIPT>
+         //This variable holds the number of click event that a user
+         //did on the table header, it is require to find the display order
+         var counter = 0;
+      </SCRIPT>
+
+      {assign var="toggleCount" value=0}
+         <tr class="tbl_header" align="center">
+            <td><a href="javascript:SortRows(myTable,0); onclick=toggleSort(0);">Name</a>
+                <img src="/nm_tx/common/image/s_asc.png" border="0" style="display:none" id="1">
+                <img src="/nm_tx/common/image/s_desc.png" border="0" style="display:none" id="2">
+            </td>
+            <td><a href="javascript:SortRows(myTable,3); onclick=toggleSort(6)">Group Email</a>
+                <img src="/nm_tx/common/image/s_asc.png" border="0" style="display:none" id="7">
+                <img src="/nm_tx/common/image/s_desc.png" border="0" style="display:none" id="8">
+            </td>
+            <td><a href="javascript:SortRows(myTable,5); onclick=toggleSort(10)">Create Date</a>
+                <img src="/nm_tx/common/image/s_asc.png" border="0" style="display:none" id="11">
+                <img src="/nm_tx/common/image/s_desc.png" border="0" style="display:none" id="12">
+            </td>
+            <td>Action</td>
+         </tr>
+
+           <SCRIPT>myTable.WriteRows()</SCRIPT>
+
+  </table>
+  {else}
+  <table border="0" width="100%">
+      <tr>
+         <td>No Group(s) available...</td>
+      </tr>
+  </table>
+  {/if}
+
+</body>
+</html>
